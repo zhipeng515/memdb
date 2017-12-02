@@ -24,8 +24,23 @@ var MongoBackend = function(opts){
 
     this.config = {
         url : opts.url || 'mongodb://localhost/test',
-        options : {server : {socketOptions : {autoReconnect : true}, reconnectTries : 10000000, reconnectInterval : 5000}}, //always retry
+        options : {
+            server : {
+                socketOptions : {
+                    autoReconnect : true
+                },
+                reconnectTries : 10000000,
+                reconnectInterval : 5000
+            },
+            auth: {
+                user: opts.options.user,
+                password: opts.options.pass,
+            },
+        }, //always retry
     };
+    if(opts.options.replset != undefined) {
+        this.config.options.replset = opts.options.replset;
+    }
     this.conn = null;
     this.connected = false;
     this.logger = Logger.getLogger('memdb', __filename, 'shard:' + opts.shardId);
