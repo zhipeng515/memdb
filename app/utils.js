@@ -19,7 +19,7 @@ var _ = require('lodash');
 var util = require('util');
 var P = require('bluebird');
 var child_process = require('child_process');
-var uuid = require('node-uuid');
+var uuid = require('uuid');
 
 // Add some usefull promise methods
 exports.extendPromise = function(P){
